@@ -27,7 +27,7 @@ class UserService:
             return result.scalars().all()
 
 
-    async def get_user_by_id(user_id: int):
+    async def get_user_by_id(user_id: int) -> User: 
         async with async_session() as session:
             result = await session.execute(select(User).where(User.id == user_id))
             return result.scalar()
@@ -46,7 +46,7 @@ class FavoriteService:
 
     
 class AssetService:
-    async def day_summary(symbol: str):
+    async def day_summary(symbol: str) -> DaySummaryOutput:
         async with ClientSession() as session:
             yesterday = date.today() - timedelta(days=1)
             url = f'https://www.mercadobitcoin.net/api/{symbol}/day-summary/{yesterday.year}/{yesterday.month}/{yesterday.day}/'
